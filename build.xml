@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="jar" name="MyReports">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../TIBCO Jaspersoft Studio 6.2.0.final.app/Contents/Eclipse/"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+	<property name="distrib" location="distrib" />
+	<property name="src" location="src" />
+	<property name="bin" location="bin" />
+
+    <path id="JasperReports Library.libraryclasspath">
+        <pathelement location="${ECLIPSE_HOME}configuration/org.eclipse.osgi/56/0/.cp/lib/jasperreports-6.2.0.jar"/>
+        <pathelement location="${ECLIPSE_HOME}configuration/org.eclipse.osgi/56/0/.cp/lib/jasperreports-chart-themes-6.2.0.jar"/>
+        <pathelement location="${ECLIPSE_HOME}configuration/org.eclipse.osgi/56/0/.cp/lib/jasperreports-fonts-6.1.1.jar"/>
+        <pathelement location="${ECLIPSE_HOME}configuration/org.eclipse.osgi/56/0/.cp/lib/jasperreports-functions-6.2.0.jar"/>
+    </path>
+    <path id="Jaspersoft Server Library.libraryclasspath">
+        <pathelement location="${ECLIPSE_HOME}configuration/org.eclipse.osgi/40/0/.cp/lib/js-common.jar"/>
+        <pathelement location="${ECLIPSE_HOME}configuration/org.eclipse.osgi/40/0/.cp/lib/js-extra-classes.jar"/>
+    </path>
+    <path id="MyReports.classpath">
+        <pathelement location="bin"/>
+        <path refid="JasperReports Library.libraryclasspath"/>
+        <path refid="Jaspersoft Server Library.libraryclasspath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+        <delete dir="distrib"/>
+    </target>
+
+	<target depends="clean" name="cleanall"/>
+
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="${bin}" includeantruntime="false" source="${source}" target="${target}">
+            <src path="${src}"/>
+            <classpath refid="MyReports.classpath"/>
+        </javac>
+    </target>
+	
+	<target name="loadversion" description="Initalize">
+		<loadfile property="version" srcFile="${src}/VERSION" >
+			<filterchain>
+				<striplinebreaks/>
+			</filterchain>
+		</loadfile>
+        <property name="jarfilename" value="cimt-jasperreports-functions-${version}.jar" />
+	</target>
+
+	<target name="jar"
+	        depends="build-project, loadversion"
+	        description="create the main jar">
+	    <mkdir dir="${distrib}"/>
+		<delete failonerror="false">
+			<fileset dir="${distrib}">
+				<include name="*.jar" />
+				<include name="*src.zip" />
+			</fileset>
+		</delete>
+		<jar jarfile="${distrib}/${jarfilename}" basedir="${bin}">
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+			</manifest>
+		</jar>
+		<zip destfile="${distrib}/${jarfilename}-src.zip">
+			<fileset dir="${src}">
+				<include name="**/*.properties" />
+				<include name="*.cfg" />
+				<include name="*.txt" />
+				<include name="**/*.gif" />
+				<include name="**/*.png" />
+				<include name="**/*.jpg" />
+				<include name="**/*.java" />
+			</fileset>
+		</zip>
+	</target>
+
+</project>
