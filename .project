@@ -24,5 +24,6 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>com.jaspersoft.studio.babel.editor.rbeNature</nature>
+		<nature>net.sf.jasperreports.nature</nature>
 	</natures>
 </projectDescription>
