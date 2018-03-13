@@ -2,6 +2,8 @@ package de.cimt.jasperreports.functions;
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -427,5 +429,36 @@ public class TimestampUtils {
     	Symbols symbols = getSymbols(locale);
     	return symbols.getWeekDayName(index);
     }
+
+	@Function("DURATION_TO_STRING")
+	@FunctionParameters({ @FunctionParameter("millis") })
+    public static String DURATION_TO_STRING(Long millis) {
+		if (millis == null) {
+			return null;
+		}
+		Duration duration = Duration.of(millis, ChronoUnit.MILLIS);
+		long days = duration.toDays();
+		long hours = duration.toHours() - (days * 24);
+		long minutes = duration.toMinutes() - ((days * 24 * 60) + (60 * hours));
+		long seconds = (duration.toMillis() / 1000) - ((days * 24 * 60 * 60) + (hours * 60 * 60) + (minutes * 60));
+		StringBuilder sb = new StringBuilder();
+		if (days > 0) {
+			sb.append(days);
+			sb.append("d ");
+		}
+		if (hours > 0) {
+			sb.append(hours);
+			sb.append("h ");
+		}
+		if (minutes > 0) {
+			sb.append(minutes);
+			sb.append("min ");
+		}
+		if (seconds > 0) {
+			sb.append(seconds);
+			sb.append("s");
+		}
+		return sb.toString();
+	}
 
 }
