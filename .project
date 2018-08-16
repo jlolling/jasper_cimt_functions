@@ -26,4 +26,11 @@
 		<nature>com.jaspersoft.studio.babel.editor.rbeNature</nature>
 		<nature>net.sf.jasperreports.nature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>stock_market_anaysis_portrait.jrxml</name>
+			<type>1</type>
+			<location>/Data/projects/mobile/workspace_jasper/Mobile/reports/stock_market_anaysis_portrait.jrxml</location>
+		</link>
+	</linkedResources>
 </projectDescription>

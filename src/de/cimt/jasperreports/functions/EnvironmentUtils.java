@@ -4,6 +4,8 @@ import java.lang.management.ManagementFactory;
 
 import net.sf.jasperreports.functions.annotations.Function;
 import net.sf.jasperreports.functions.annotations.FunctionCategories;
+import net.sf.jasperreports.functions.annotations.FunctionParameter;
+import net.sf.jasperreports.functions.annotations.FunctionParameters;
 
 @FunctionCategories({ de.cimt.jasperreports.functions.EnvironmentUtilsCategory.class })
 public class EnvironmentUtils {
@@ -28,6 +30,16 @@ public class EnvironmentUtils {
 			} else {
 				return info;
 			}
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Function("GET_ENV_VAR")
+	@FunctionParameters({ @FunctionParameter("string") })
+	public static String GET_ENV_VAR(String name) {
+		try {
+			return System.getenv(name);
 		} catch (Exception e) {
 			return null;
 		}
