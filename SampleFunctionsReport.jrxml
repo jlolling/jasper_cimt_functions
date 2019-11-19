@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
-<!-- 2016-04-04T16:43:17 -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.3.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SampleFunctions" pageWidth="595" pageHeight="4000" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="4d9e1946-2622-4966-880b-a4defcf71052">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -326,10 +325,6 @@
 				</box>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[WEEK_INT_AS_DATE_DE( 201605)]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="320" y="353" width="160" height="15" uuid="a782d1df-b18b-4fd7-a8b9-3b9f88b9c890"/>
-				<textFieldExpression><![CDATA[$P{REPORT_FILE_RESOLVER} != null ? "exists" : "not exists"]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>

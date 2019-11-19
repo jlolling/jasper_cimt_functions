@@ -1,5 +1,7 @@
 package de.cimt.jasperreports.functions;
 
+import java.util.Collection;
+
 import net.sf.jasperreports.functions.annotations.Function;
 import net.sf.jasperreports.functions.annotations.FunctionCategories;
 import net.sf.jasperreports.functions.annotations.FunctionParameter;
@@ -36,7 +38,8 @@ public class StringUtils {
 	}
 
 	@Function("FILL_RIGHT")
-	@FunctionParameters({ @FunctionParameter("string"),
+	@FunctionParameters({ 
+		@FunctionParameter("string"),
 		@FunctionParameter("length"),
 		@FunctionParameter("charToFillWith")
 	})
@@ -57,7 +60,8 @@ public class StringUtils {
 	}
 
 	@Function("FILL_LEFT")
-	@FunctionParameters({ @FunctionParameter("string"),
+	@FunctionParameters({ 
+		@FunctionParameter("string"),
 		@FunctionParameter("length"),
 		@FunctionParameter("charToFillWith")
 	})
@@ -76,4 +80,36 @@ public class StringUtils {
 		return sb.toString();
 	}
 	
+	@Function("COLLECTION_TO_STRING")
+	@FunctionParameters({ 
+		@FunctionParameter("list"),
+		@FunctionParameter("delimiter"),
+		@FunctionParameter("quoteVarchar")
+	})
+	public static String COLLECTION_TO_STRING(Collection<?> list, String delimiter, boolean quoteVarchar) {
+		if (list == null) {
+			return null;
+		}
+		if (delimiter == null) {
+			delimiter = ",";
+		}
+		StringBuilder sb = new StringBuilder();
+		boolean firstLoop = true;
+		for (Object value : list) {
+			 if (firstLoop) {
+				 firstLoop = false;
+			 } else if (delimiter != null) {
+				 sb.append(delimiter);
+			 }
+			 if (quoteVarchar) {
+				 sb.append("'");
+			 }
+			 sb.append(String.valueOf(value));
+			 if (quoteVarchar) {
+				 sb.append("'");
+			 }
+		}
+		return sb.toString();
+	}
+
 }
